@@ -1,3 +1,5 @@
+%Eric Castillo
+
 initial_state([n,n,n,n]).  %We start on the north side
 final_state([s,s,s,s]).  %We finish on the south side
 
