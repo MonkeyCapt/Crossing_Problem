@@ -1,0 +1,30 @@
+side(n).
+side(s).
+
+unSafeState(F,G,C,W) :-
+	(C=G, not(C=F));
+	(G=W, not(G=F)).
+validState(F,G,C,W) :-
+	side(F),side(G),side(C),side(W),
+	not(unsafeState(F,G,C,W)).
+	
+isSafeTrans(state(F,G,C,W),state(Farm,G,C,W):-
+	validState(F,G,C,W), validState(Farm,G,C,W).
+isSafeTrans(state(F,F,C,W),state(Farm,Farm,C,W)):-
+	validState(F,F,C,W,) validState(Farm,Farm,C,W).	
+isSafeTrans(state(F,G,F,W),state(Farm,G,Farm,W)):-
+	validState(F,G,F,W), validState(Farm,G,Farm,W).
+isSafeTrans(state(F,G,C,F),state(Farm,G,C,Farm)):-
+	validState(F,G,C,F),validState(Farm,G,C,Farm)).
+
+path(A,B,Path):- path(A,B,Path, []).
+
+path(Current,End,Path, _):-
+	[Cuttent,| [End|[]] ] = Path,
+	isSafeTrans(Current,End).
+	
+path(Current,End,Path, Previous):-
+	[Current|[Next|Tail]] = Path,
+	not(member(Current,Previous)),
+	isSafeTrans(Current,Next),
+	path(Next,End, [Next|Tail], [Current|Previous]).
