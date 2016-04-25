@@ -33,5 +33,4 @@ member_state(S, [S|_]).
 member_state(X, [_|T]) :- member_state(X,T).
 
 go(AllPaths) :-
-
-bagof(AnsPath, depth_first_search(AnsPath), AllPaths).
+	bagof(AnsPath, depth_first_search(AnsPath), AllPaths).
